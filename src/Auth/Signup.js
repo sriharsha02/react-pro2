@@ -1,10 +1,19 @@
 import { useState } from "react";
+import { validateEmail } from "../Utils/utils";
 
 function Signup() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [mobile, setMobile] = useState("");
   const [password, setPassword] = useState("");
+
+  //error variables
+
+  const [nameError, setNameError] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [mobileError, setMobileError] = useState("");
+
   function handleNameChange(event) {
     setName(event.target.value);
   }
@@ -19,7 +28,38 @@ function Signup() {
   function handlePasswordChange(e) {
     setPassword(e.target.value);
   }
-  function handleCreateAccount() {}
+  function handleCreateAccount() {
+    let noOfError = 0;
+    if (name.length < 3) {
+      setNameError("Min 3 characters");
+      noOfError++;
+    } else {
+      setNameError("");
+    }
+    if (validateEmail(email)) {
+      setEmailError("");
+      console.log(emailError);
+    } else {
+      setEmailError("Email is invalid");
+      console.log(emailError);
+      noOfError++;
+    }
+    if (password.length < 8) {
+      setPasswordError("Min 8 characters");
+      noOfError++;
+    } else {
+      setPasswordError("");
+    }
+    if (mobile.length === 10) {
+      setMobileError("");
+    } else {
+      setMobileError("Invalid mobile number");
+      noOfError++;
+    }
+    if (noOfError === 0) {
+      console.log("calling api", noOfError);
+    }
+  }
   return (
     <div className="container">
       <div className="row">
@@ -33,6 +73,7 @@ function Signup() {
               placeholder="Name"
               onChange={(event) => handleNameChange(event)}
             />
+            <div className="text-danger"> {nameError}</div>
           </div>
           <div className="mb-3">
             <label htmlFor="">Email</label>
@@ -42,6 +83,7 @@ function Signup() {
               placeholder="Email"
               onChange={(event) => handleEmailChange(event)}
             />
+            <div className="text-danger"> {emailError}</div>
           </div>
           <div className="mb-3">
             <label htmlFor="">Mobile</label>
@@ -53,6 +95,7 @@ function Signup() {
                 handleMobileChange(e);
               }}
             />
+            <div className="text-danger"> {mobileError}</div>
           </div>
           <div className="mb-3">
             <label htmlFor="">Password</label>
@@ -64,6 +107,7 @@ function Signup() {
                 handlePasswordChange(e);
               }}
             />
+            <div className="text-danger"> {passwordError}</div>
           </div>
           <div>
             <button
