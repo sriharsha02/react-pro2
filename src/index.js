@@ -8,6 +8,7 @@ import Signup from "./Auth/Signup";
 import Home from "./Home";
 import Address from "./Address";
 import UserProfile from "./UserProfile";
+import Login from "./Auth/Login";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
@@ -15,6 +16,7 @@ root.render(
       <Routes>
         <Route path="/" Component={Home}></Route>
         <Route path="/create-account" Component={Signup}></Route>
+        <Route path="/login" element={<Login />}></Route>
         <Route path="/address" element={<Address />}></Route>
         <Route path="/profile" element={<UserProfile />}></Route>
       </Routes>
