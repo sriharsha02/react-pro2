@@ -44,18 +44,25 @@ function Login() {
         email: email,
         password: password,
       };
-
-      let apiResponse = await axios.post(
-        "https://api.softwareschool.co/auth/login",
-        apiInputData
-      );
-      console.log("API Response", apiResponse);
-      if (apiResponse.data.result == "SUCCESS") {
-        // console.log(apiResponse.data.data.token);
-        setApiSuccessMsg(apiResponse.data.data.token);
-        setApiErrorMsg("");
-      } else {
-        setApiErrorMsg(apiResponse.data.message);
+      try {
+        let apiResponse = await axios.post(
+          "https://api.softwareschool.co/auth/login",
+          apiInputData
+        );
+        console.log("API Response", apiResponse);
+        if (apiResponse.data.result == "SUCCESS") {
+          console.log(apiResponse.data.message);
+          setApiSuccessMsg(apiResponse.data.message);
+          setApiErrorMsg("");
+          console.log(apiResponse.data.data.userId);
+          localStorage.setItem("loggedInUserId", apiResponse.data.data.userId);
+          window.location = "/";
+        } else {
+          setApiErrorMsg(apiResponse.data.message);
+          setApiSuccessMsg("");
+        }
+      } catch (e) {
+        setApiErrorMsg(e.message);
         setApiSuccessMsg("");
       }
     }
