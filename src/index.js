@@ -5,11 +5,12 @@ import reportWebVitals from "./reportWebVitals";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Signup from "./Auth/Signup";
-import Home from "./Home";
+import Home from "./Home/Home";
 import Address from "./Address";
 import UserProfile from "./UserProfile";
 import Login from "./Auth/Login";
 import Payment from "./Payment";
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
